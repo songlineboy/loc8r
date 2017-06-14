@@ -1,7 +1,12 @@
+// router tells express what this request must go
 var express = require('express');
-var cntlMain = require('../controllers/main');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', cntlMain.index);
+var cntlLocation = require('../controllers/location');
+
+/* location pages */
+router.get('/', cntlLocation.homelist);
+router.get('/location', cntlLocation.location);
+router.get('/location/review/new', cntlLocation.addreview);
+
 module.exports = router;

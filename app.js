@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 // the routes
 var index = require('./app_server/routes/index');
+var about = require('./app_server/routes/about');
+
 var users = require('./app_server/routes/users');
 var simon = require('./app_server/routes/simon');
 
@@ -26,8 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// the url mappings
+// the root url mappings -  each router may the have several other mappings off this root
 app.use('/', index);
+app.use('/about', about);
+
 app.use('/simon', simon);
 app.use('/users', users);
 
