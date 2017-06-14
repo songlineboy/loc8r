@@ -1,5 +1,67 @@
 extends layout
 
 block content
-  h1= title
-  p Locations: #{title}
+  .row.page-header
+    .col-lg-12
+      h1= Starcunts
+  .row
+    .col-xs-12.col-md-9
+      .row
+        .col-xs-12.col-sm-6
+          p.rating
+            span.glyphicon.glyphicon-star
+            span.glyphicon.glyphicon-star
+            span.glyphicon.glyphicon-star
+            span.glyphicon.glyphicon-star-empty
+            span.glyphicon.glyphicon-star-empty
+          p 125a  Big Poop avenue, loverville, dr5 5tg
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Opening hours
+            .panel-body
+              timesssss
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Facilities
+            .panel-body
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                | &nbsp;#{facility}
+              | &nbsp;
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                | &nbsp;#{facility}
+              | &nbsp;
+              span.label.label-warning
+                span.glyphicon.glyphicon-ok
+                | &nbsp;#{facility}
+              | &nbsp;
+        .col-xs-12.col-sm-6.location-map
+          .panel.panel-primary
+            .panel-heading
+              h2.panel-title Location map
+            .panel-body
+              img.img-responsive.img-rounded(src="http://maps.googleapis.com/maps/api/staticmap?center=51,-0.96&zoom=8&size=400x350&sensor=false&markers=51.587542,0.969696&scale=2")
+      .row
+        .col-xs-12
+          .panel.panel-primary.review-panel
+            .panel-heading
+              a.btn.btn-default.pull-right(href="/location/review/new") Add review
+              h2.panel-title Customer reviews
+            .panel-body.review-container
+              .row
+                .review
+                  .well.well-sm.review-header
+                    span.rating
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star
+                      span.glyphicon.glyphicon-star-empty
+                      span.glyphicon.glyphicon-star-empty
+                    span.reviewAuthor Dolly Chops
+                    small.reviewTimestamp just now...
+                    .col-xs-12
+                      p its coolio
+    .col-xs-12.col-md-3
+      p.lead Looking for wifi and a big cock? Loc8r is great for finding both! Cake, drizzled with precum and some real cum when you're ready to pay!
+      p leave a review
