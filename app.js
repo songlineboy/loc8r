@@ -4,13 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+require('./app_server/models/db');
 
 // the routes
 var index = require('./app_server/routes/index');
 var about = require('./app_server/routes/about');
-
 var users = require('./app_server/routes/users');
-var simon = require('./app_server/routes/simon');
 
 var app = express();
 
@@ -31,8 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // the root url mappings -  each router may the have several other mappings off this root
 app.use('/', index);
 app.use('/about', about);
-
-app.use('/simon', simon);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
