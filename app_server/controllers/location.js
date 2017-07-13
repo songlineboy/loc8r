@@ -45,10 +45,7 @@ module.exports.location = function(req, res) {
             address: '125 High Street, Reading, RG6 1PS',
             rating: 3,
             facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-            coords: {
-                lat: 51.455041,
-                lng: -0.9690884
-            },
+            coords: {lat:51.455041,lng:-0.9690884},
             openingTimes: [{
                 days: 'Monday - Friday',
                 opening: '7:00am',
