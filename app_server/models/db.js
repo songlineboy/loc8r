@@ -1,3 +1,4 @@
+// mongoDB management for this app
 var mongoose = require('mongoose');
 var gracefulShutdown;
 var dbURI = 'mongodb://localhost/Loc8r';
