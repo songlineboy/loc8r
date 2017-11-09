@@ -30,4 +30,4 @@ var locationSchema = new mongoose.Schema({
 });
 
 // add this model to the db
-mongoose.model('Location', locationSchema);
+mongoose.model('Location', locationSchema, 'locations');
