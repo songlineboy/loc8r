@@ -4,18 +4,18 @@ var mongoose = require('mongoose');
 // propertytype can be Sring, number, date, boolean, buffer, mixed, array & objectID
 // each is a path! which defines a Document.. documents are held in Collections (table)
 // this is a subdocument, which is a nested scheme within locationSchema here
-var openingTimeSchema = new mongoose.Schema({
-    days: {type: String, required: true},
-    opening: String,
-    closing: String,
-    closed: {type: Boolean, required: true}
-});
-
 var reviewSchema = new mongoose.Schema({
     author: String,
     rating: {type: Number, required: true, min: 0, max: 5},
     reviewText: String,
     createdOn: {type: Date, "default": Date.now}
+});
+
+var openingTimeSchema = new mongoose.Schema({
+    days: {type: String, required: true},
+    opening: String,
+    closing: String,
+    closed: {type: Boolean, required: true}
 });
 
 var locationSchema = new mongoose.Schema({
@@ -29,5 +29,5 @@ var locationSchema = new mongoose.Schema({
     reviews: [reviewSchema]
 });
 
-// add this model to the db
+// add this model to the db (model name, scheme head, collection name (defaults to pluralised lowercase))
 mongoose.model('Location', locationSchema, 'locations');
