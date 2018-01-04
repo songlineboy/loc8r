@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 // each is a path! which defines a Document.. documents are held in Collections (table)
 // this is a subdocument, which is a nested scheme within locationSchema here
 var reviewSchema = new mongoose.Schema({
-    author: String,
+    author: {type: String, required: true},
     rating: {type: Number, required: true, min: 0, max: 5},
-    reviewText: String,
-    createdOn: {type: Date, "default": Date.now}
+    reviewText: {type: String, required: true},
+    timestamp: {type: Date, "default": Date.now}
 });
 
 var openingTimeSchema = new mongoose.Schema({

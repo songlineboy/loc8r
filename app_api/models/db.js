@@ -4,6 +4,7 @@ var gracefulShutdown;
 var dbURI = 'mongodb://localhost/Loc8r';
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
+    console.log('Using mongolab DB -Live');
 }
 mongoose.connect(dbURI);
 
