@@ -68,7 +68,7 @@ let locationListCtrl = function ($scope, loc8rData, geolocation){
 
     loc8rData.locationByCoords(lat, lng)
       .then(function(d) {
-        console.log($rootScope);
+        console.log($scope);
         let data = d.data;
         // dont need to push this change of scope to view as this is wrapped already by this promise returned in most angular inbuilt services like http
         $scope.message = data.length > 0 ? "" : "No locations found nearby";
