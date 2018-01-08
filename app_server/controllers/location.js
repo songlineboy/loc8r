@@ -9,29 +9,20 @@ if (process.env.NODE_ENV === 'production') {
     };
 }
 
-let renderHomepage = function(req,res,data){
-    let message;
-    if (!(data instanceof Array)){
-        message = "API lookup error";
-        data = [];
-    } else if (!data.length) {
-        message = "No Places found nearby";
-    }
+let renderHomepage = function(req,res){
     res.render('location-list',{
         title: 'Loc8r - find a place to work with wifi',
         pageHeader: {
             title: 'Loc8r',
             strapline: 'Find places to work with wifi near you!'
         },
-        sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
-        locations: data,
-        message: message
-    });
+        sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for."
+        });
 };
 
 let renderLocation = function(req,res,data){
     //if (res.post){deal with posted info};
-    res.render('location', {
+    res.render('location-info', {
         title: data.name,
         pageHeader: {title: data.name},
         sidebar: {
@@ -43,23 +34,12 @@ let renderLocation = function(req,res,data){
 }
 
 let renderReview = function(req,res,data){
-    res.render('addreview', {
+    res.render('location-review-form', {
         title: 'Review ' + data.name + ' on Loc8r', 
         pageHeader: {title: 'Review ' +data.name},
-        error: req.query.err
+        error: req.query.err,
+        url: req.originalUrl
     });
-}
-
-let _formatDistance = function (distance){
-  let numDistance, unit;
-  if (distance > 1){
-     numDistance = parseFloat(distance).toFixed(1);
-     unit = 'km'; 
-  } else {
-     numDistance = parseInt(distance * 1000,10);
-     unit = 'm'; 
-  }
-  return numDistance + unit;
 }
 
 let _showError = function (req,res, status){
@@ -135,30 +115,7 @@ let setLocationInfo = function(req, res, callback){
 
 /* GET 'home' location-list.pug  page */
 module.exports.homelist = function(req, res) {
-    let requestOptions, path, md;
-    path = '/api/locations';
-    md = req.query.near ? req.query.near : 50; // default to 50km
-    requestOptions = {
-        url: apiOptions.server + path,
-        method: "get",
-        json: {},
-        qs: {lat:51.475041,lng:-0.9690785,maxDistance: md}
-    };
-
-    
-    // make the api request, and set the callback function to run when complete
-    request(
-        requestOptions,
-        function(err, response, body){
-            //note, req.res from parent scope.. we need this coz this is the page request being made
-            let i;
-            if (response.statusCode === 200 && body.length){
-                for (i=0;i<body.length;i++){
-                    body[i].distance = _formatDistance(body[i].distance);
-                }
-            };
-            renderHomepage(req,res,body);
-        });
+    renderHomepage(req,res);
 };
 
 /* GET 'Location info' page */
