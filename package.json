@@ -10,9 +10,14 @@
     "npm": "~5.0.0"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "angular": "^1.6.8",
     "angular-route": "^1.6.8",
     "body-parser": "~1.17.1",
+=======
+    "body-parser": "~1.17.1",
+    "bson": "^1.0.4",
+>>>>>>> Stashed changes
     "cookie-parser": "~1.4.3",
     "debug": "^2.6.9",
     "express": "^4.16.2",
@@ -20,6 +25,11 @@
     "morgan": "~1.8.1",
     "pug": "^2.0.0-rc.4",
     "request": "^2.83.0",
+<<<<<<< Updated upstream
     "serve-favicon": "^2.4.5"
+=======
+    "serve-favicon": "^2.4.5",
+    "uglify-js": "~2.4.15"
+>>>>>>> Stashed changes
   }
 }
