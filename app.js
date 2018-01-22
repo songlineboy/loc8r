@@ -19,7 +19,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 var appClientFiles = [
   'app_client/app.js',
@@ -62,6 +62,7 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 // app.use('/', routes);
 app.use('/api', routesApi);
 
+//catch all
 app.use(function(req, res) {
   res.sendFile(path.join(__dirname, 'app_client', 'index.html'));
 });
