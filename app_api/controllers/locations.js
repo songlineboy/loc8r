@@ -1,19 +1,19 @@
-let mongoose = require('mongoose');
-let Loc = mongoose.model('Location');
+var mongoose = require('mongoose');
+var Loc = mongoose.model('Location');
 
-let sendJSONresponse = function(res, status, content) {
+var sendJSONresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
 
-let theEarth = (function() {
-  let earthRadius = 6371; // km, miles is 3959
+var theEarth = (function() {
+  var earthRadius = 6371; // km, miles is 3959
 
-  let getDistanceFromRads = function(rads) {
+  var getDistanceFromRads = function(rads) {
     return parseFloat(rads * earthRadius);
   };
 
-  let getRadsFromDistance = function(distance) {
+  var getRadsFromDistance = function(distance) {
     return parseFloat(distance / earthRadius);
   };
 
@@ -25,41 +25,42 @@ let theEarth = (function() {
 
 /* GET list of locations */
 module.exports.locationsListByDistance = function(req, res) {
-  let lng = parseFloat(req.query.lng);
-  let lat = parseFloat(req.query.lat);
-  let maxDistance = parseFloat(req.query.maxDistance);
-  let point = {type: "Point",coordinates: [lng, lat]};
-  let geoOptions = {
+  var lng = parseFloat(req.query.lng);
+  var lat = parseFloat(req.query.lat);
+  var maxDistance = parseFloat(req.query.maxDistance);
+  var point = {
+    type: "Point",
+    coordinates: [lng, lat]
+  };
+  var geoOptions = {
     spherical: true,
     maxDistance: theEarth.getRadsFromDistance(maxDistance),
     num: 10
   };
-  if ((!lng && lng!==0) || (!lat && lat!==0) || !maxDistance) {
+  if ((!lng && lng!==0) || (!lat && lat!==0) || ! maxDistance) {
     console.log('locationsListByDistance missing params');
     sendJSONresponse(res, 404, {
       "message": "lng, lat and maxDistance query parameters are all required"
     });
     return;
   }
-  Loc.geoNear(point, geoOptions, 
-    function(err, results, stats) {
-      let locations;
-      console.log('Geo stats', stats);
-      if (err) {
-        console.log('geoNear error:', err);
-        sendJSONresponse(res, 404, err);
-      } else {
-        locations = buildLocationList(req, res, results, stats);
-        sendJSONresponse(res, 200, locations);
-      }
+  Loc.geoNear(point, geoOptions, function(err, results, stats) {
+    var locations;
+    console.log('Geo Results', results);
+    console.log('Geo stats', stats);
+    if (err) {
+      console.log('geoNear error:', err);
+      sendJSONresponse(res, 404, err);
+    } else {
+      locations = buildLocationList(req, res, results, stats);
+      sendJSONresponse(res, 200, locations);
     }
-  );
+  });
 };
 
-let buildLocationList = function(req, res, results, stats) {
-  let locations = [];
-  let formatedDistance;
-  results.forEach(function(doc){
+var buildLocationList = function(req, res, results, stats) {
+  var locations = [];
+  results.forEach(function(doc) {
     locations.push({
       distance: theEarth.getDistanceFromRads(doc.dis),
       name: doc.obj.name,
@@ -72,15 +73,14 @@ let buildLocationList = function(req, res, results, stats) {
   return locations;
 };
 
-
-
 /* GET a location by the id */
 module.exports.locationsReadOne = function(req, res) {
+  console.log('Finding location details', req.params);
   if (req.params && req.params.locationid) {
     Loc
       .findById(req.params.locationid)
-      .exec(function(err, loc) {
-        if (!loc) { // false is nothing
+      .exec(function(err, location) {
+        if (!location) {
           sendJSONresponse(res, 404, {
             "message": "locationid not found"
           });
@@ -90,7 +90,8 @@ module.exports.locationsReadOne = function(req, res) {
           sendJSONresponse(res, 404, err);
           return;
         }
-        sendJSONresponse(res, 200, loc);
+        console.log(location);
+        sendJSONresponse(res, 200, location);
       });
   } else {
     console.log('No locationid specified');
@@ -181,7 +182,7 @@ module.exports.locationsUpdateOne = function(req, res) {
 
 /* DELETE /api/locations/:locationid */
 module.exports.locationsDeleteOne = function(req, res) {
-  let locationid = req.params.locationid;
+  var locationid = req.params.locationid;
   if (locationid) {
     Loc
       .findByIdAndRemove(locationid)

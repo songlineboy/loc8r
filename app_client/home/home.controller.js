@@ -4,10 +4,14 @@
     .module('loc8rApp')
     .controller('homeCtrl', homeCtrl);
 
-  homeCtrl.$inject = ['$scope', 'loc8rData', 'geolocation'];//should match the controllers
-  
+  homeCtrl.$inject = ['$scope', 'loc8rData', 'geolocation'];
   function homeCtrl ($scope, loc8rData, geolocation) {
+    // Nasty IE9 redirect hack (not recommended)
+    if (window.location.pathname !== '/') {
+      window.location.href = '/#' + window.location.pathname;
+    }
     var vm = this;
+    console.log(window.location);
     vm.pageHeader = {
       title: 'Loc8r',
       strapline: 'Find places to work with wifi near you!'

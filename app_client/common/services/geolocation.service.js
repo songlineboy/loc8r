@@ -1,5 +1,3 @@
-// IIFE immediately invokes function expression - hides content from global scope 
-// cleaner and encapsulates away to its own space - and we connect everything our angular. var
 (function () {
 
   angular
